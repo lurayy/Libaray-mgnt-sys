@@ -10,6 +10,26 @@
     <a href="/user/logout">Log Out</a><br>
 
     Search for : <input type="text" onchange="searchBooks(this.value)">
+
+    <div id = "result">
+        <div id="search_table" class="table-responsive">
+            <hr>
+            <div class="card shadow">
+                <div class="card-header border-0" id="insert_book_name">
+                </div>
+                <div class="table-responsive">
+                    <table class="table align-items-center table-flush table-hover">
+                        <tr>
+                        <th scope="col">Aurthur</th>
+                        <th scope="col">Assigned To</th>
+                        </tr>
+                    <tbody id="search_results">
+                    </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
     
 {% else %}
@@ -27,6 +47,9 @@
 
 
 <script>
+    $(document).ready(function(){
+    $("#result").hide();
+})
 function searchBooks(name){
     var info = {
         'name': name,
@@ -38,10 +61,38 @@ function searchBooks(name){
         success: function(data){
             // outputData(data);
             console.log(data);
+            output(data);
         }
     });
 }
 
+function output(data){
+    y = data['size'];
+    console.log(data['book'][0]['name'])
+        $('#insert_book_name').append(
+            '<h2 class="mb-0" id="book_name_show"><u><b>Book Name : '+data['book'][0]['name']+'</u></h2>');
+        var null_assigned;
+        var null_due_date;
+        var table_property;
+        data =  data['book']
+        while (y) {
+            y = y -1;
+            if(data[y]['is_assigned']){
+                null_assigned = data[y]['assigned_to']
+            }
+            else {
+                null_assigned = 'Avaible!'
+                $('#assign').show();
+            }
+            $("#search_results").append(
+                '<tr data-href="'+data[y]['id']+'" class="table-row"><td>'+data[y]['author']+'</td><td class = "'+table_property+'">'+null_assigned+'</td></tr>'
+            )
+        }
+        $(".table-row").click(function() {
+        window.document.location = $(this).data("href");
+        });   
+        $("#result").show();
+}
 
 </script>
 {% endblock %}

@@ -31,12 +31,9 @@ def search(request):
         json_str = request.body.decode(encoding = 'UTF-8')
         data = json.loads(json_str)
         book_name = data['name']
-        print(book_name)
         book = Books.objects.filter(name = book_name)
-        print(book)
-        response_json = {'book':[]}
+        response_json = {'book':[],'size':0}
         for x in book:
-            print(x)
             temp_json = {}
             temp_json['id'] = x.id
             temp_json['name'] = x.name
@@ -44,6 +41,7 @@ def search(request):
             temp_json['is_assigned'] = x.is_assigned
             temp_json['assigned_to'] = x.assigned_to
             response_json['book'].append(temp_json)
+            response_json['size'] = response_json['size'] + 1 
         print(response_json)
         return HttpResponse(json.dumps(response_json),content_type = 'application/json')
 
