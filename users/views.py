@@ -38,13 +38,13 @@ def user_logout(request):
 def user_signup(request):
     if request.method == 'POST':
         user_form = UserForm(request.POST)
+        print(user_form)
         if user_form.is_valid():
             user = user_form.save(commit=False)
             user.save()
             return HttpResponseRedirect('/')
         else:
-            messages.error(request,"Some Error On the Form.")
-            return HttpResponse(request,'user/student_form.html')
+            return HttpResponse('Some errors occured in the form please try again.')
     else:
         user_form = UserForm()
         return render(request, 'users/sign_up.html', { 'user_form':user_form})
