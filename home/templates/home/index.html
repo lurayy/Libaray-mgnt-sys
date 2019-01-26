@@ -85,7 +85,7 @@ function output(data){
                 $('#assign').show();
             }
             $("#search_results").append(
-                '<tr data-href="'+data[y]['id']+'" class="table-row"><td>'+data[y]['author']+'</td><td class = "'+table_property+'">'+null_assigned+'</td></tr>'
+                '<tr data-href="/library/'+data[y]['id']+'" class="table-row"><td>'+data[y]['author']+'</td><td class = "'+table_property+'">'+null_assigned+'</td></tr>'
             )
         }
         $(".table-row").click(function() {

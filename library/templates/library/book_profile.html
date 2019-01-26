@@ -1,0 +1,72 @@
+{% extends 'home/header.html' %}
+
+{% block content %}
+<br>
+<br>
+
+<div class="container">
+<div class="table-responsive">
+        <table class="table align-items-center table-flush table-hover">
+            <tr>
+            <th scope="col">Author Name :</th>
+            <th scope="col">{{ author }}</th>
+            </tr>
+            <tr>
+            <th scope="col">Assigned To :</th>
+            <th scope="col"> {{ username }} </th>
+            </tr>
+            {% if user.is_librarian == True %}
+                {% if is_assigned is True %}
+            <tr>
+                <th><button class="btn btn-danger" onclick="mark_returned()">Mark As Returned</button></th>
+                </tr>
+            {% else %}
+            <tr>
+                <th><input class="form-control" type="text" placeholder="UserName" id="username"></th>
+            </tr>
+            <tr>
+                <th><button class="btn btn-primary" onclick="assignto()">Assign</button></th>
+            </tr>
+            <tr>
+            </tr>
+                {% endif %}
+                {% endif %}
+        </table>
+</div>
+
+</div>
+
+<script>
+function assignto(){
+    var username = $('#username').val();
+    var info = {
+        'username': username,
+        'id':'{{ id }}'
+    };
+    console.log(info)
+    $.ajax ({
+        type: 'POST',
+        url: '/library/assign',
+        data: JSON.stringify(info),
+        success: function(data){
+                window.location.reload();
+        }
+    });
+}
+
+function mark_returned(){
+    var info = {
+        'id':'{{ id }}'
+    };
+    $.ajax ({
+        type: 'POST',
+        url: '/library/return',
+        data: JSON.stringify(info),
+        success: function(data){
+                window.location.reload();
+        }
+    });
+}
+
+</script>
+{% endblock %}
