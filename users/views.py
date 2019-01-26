@@ -21,10 +21,10 @@ def user_login(request):
                 user = authenticate(request, username = username, password = password)
                 if user is not None:
                     login(request,user)
-                    return HttpResponse('You are now logged in')
+                    return HttpResponseRedirect('/')
                 else:
                     messages.error(request,'Username or Password is not correct.')
-                    return HttpResponseRedirect('/')           
+                    return HttpResponse('Username or Password is not correct.')           
         else:
             form = LoginForm()
             return render (request, 'home/index.html',{'form':form})
