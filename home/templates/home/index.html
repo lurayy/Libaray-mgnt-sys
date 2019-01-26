@@ -2,19 +2,46 @@
 
 {% block content %}
 {% if user.is_authenticated %}
+<div class="container">
+    {% if user.is_librarian %}
+    <br>
+    <a href="/library/add_book">Add New Book</a>
+    {% endif %}<br>
+    <a href="/user/logout">Log Out</a><br>
 
-<a class="nav-link" href="/user/logout">Log Out</a>
+    Search for : <input type="text" onchange="searchBooks(this.value)">
+</div>
+    
 {% else %}
+    
 
-<!-- user loged in xaina vanae yo div ko dayxa  -->
 
-<div>
+<!-- work from here for no authentitcated users -->
+<div class="container">
 
-{% include 'users/login.html' %}
+    {% include 'users/login.html' %}
 
 </div>
-
-
 {% endif %}
 
+
+
+<script>
+function searchBooks(name){
+    var info = {
+        'name': name,
+    };
+    $.ajax ({
+        type: 'POST',
+        url: '/library/search',
+        data: JSON.stringify(info),
+        success: function(data){
+            // outputData(data);
+            console.log(data);
+        }
+    });
+}
+
+
+</script>
 {% endblock %}

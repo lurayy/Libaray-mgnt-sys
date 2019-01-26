@@ -1,0 +1,10 @@
+{% extends 'home/header.html' %}
+{% block content %}
+<div class="container">
+  <form method="post">
+    {{ field.errors }}
+    {{ book_form.as_p }}
+    <button type="submit" class="btn btn-primary">Regsiter</button>
+  </form>
+    </div>
+{% endblock %}
