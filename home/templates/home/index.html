@@ -1,4 +1,16 @@
 {% extends 'home/header.html' %}
+
 {% block content %}
+
 <h1>Home Page</h1>
+<!-- User loin here -->
+
+
+{% include 'users/login.html' %}
+
+
+{% if user.is_authenticated %}
+<a class="nav-link" href="/user/logout">Log Out</a>
+{% endif %}
+
 {% endblock %}

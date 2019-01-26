@@ -1,4 +1,16 @@
-{% extends 'home/header.html' %}
 {% block content %}
-<h1>login page</h1>
+
+{% for message in messages %}
+  {{ message }}
+{% endfor %}
+<div class="container">
+<form role="form" method="POST" action = "user/login">
+        <input class="form-control" placeholder="Username" type="text" name="username" id="username" >
+        <input class="form-control" placeholder="Password" type="password" name = "password" id="password">
+    <div class="text-center">
+      <button type="submit" class="btn btn-primary my-4">Login</button>
+    </div>
+  </form>
+  
+  </div>
 {% endblock %}
