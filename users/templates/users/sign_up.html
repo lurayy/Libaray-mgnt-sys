@@ -1,7 +1,7 @@
 {% extends 'home/header.html' %}
 {% block content %}
 <div class="container">
-      <form method="post">
+  <form role="form" method="POST" action = "/user/signup">
         {{ field.errors }}
         {{ user_form.as_p }}
         <button type="submit" class="btn btn-primary">Regsiter</button>
